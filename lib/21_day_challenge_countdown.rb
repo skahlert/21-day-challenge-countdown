@@ -5,21 +5,34 @@ require 'active_support/core_ext/time/zones'
 
 module TwentyOneDayChallenge
   class Countdown
-    attr_reader :time_left
-    attr_reader :current_day
-
-    def initialize
-      Time.zone = 'UTC'
-      start = ActiveSupport::TimeZone.new('Mountain Time (US & Canada)')
-        .parse('13/04/2015 12:00').to_datetime
-      now = Time.zone.now.to_datetime
-      elapsed = (now - start)
-      @current_day = (elapsed).ceil
-      next_deadline = start + @current_day
-      left_today = next_deadline.to_time - now.to_time
-      @time_left = Time.zone.at(left_today)
-      # left_string = @time_left.strftime("%H:%M:%S")
+    attr_accessor :anchor
+    def next_deadline
+      @anchor + current_day
     end
+
+    def now
+      Time.zone.now.to_datetime
+    end
+
+    def current_day
+      elapsed = (now - @anchor)
+      (elapsed).ceil
+    end
+
+    def left_today
+      next_deadline.to_time - now.to_time
+    end
+
+    def time_left
+      Time.zone.at(left_today)
+    end
+
+    def initialize(*args)
+      Time.zone = 'UTC'
+      @anchor = ActiveSupport::TimeZone.new('Mountain Time (US & Canada)')
+        .parse('13/04/2015 12:00').to_datetime
+    end
+
 
     def deadline
       "Today is day #{current_day}. You have #{time_left.strftime('%H:%M:%S')
