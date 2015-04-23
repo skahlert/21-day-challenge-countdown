@@ -27,12 +27,11 @@ module TwentyOneDayChallenge
       Time.zone.at(left_today)
     end
 
-    def initialize(*args)
+    def initialize(*_args)
       Time.zone = 'UTC'
       @anchor = ActiveSupport::TimeZone.new('Mountain Time (US & Canada)')
-        .parse('13/04/2015 12:00').to_datetime
+                .parse('13/04/2015 12:00').to_datetime
     end
-
 
     def deadline
       "Today is day #{current_day}. You have #{time_left.strftime('%H:%M:%S')
