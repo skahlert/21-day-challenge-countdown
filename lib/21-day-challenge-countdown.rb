@@ -11,7 +11,7 @@ module TwentyOneDayChallenge
     def initialize
       Time.zone = 'UTC'
       start = ActiveSupport::TimeZone.new('Mountain Time (US & Canada)')
-        .parse('13/04/2015 12:00').to_datetime
+        .parse('04/05/2015 12:00').to_datetime
       now = Time.zone.now.to_datetime
       elapsed = (now - start)
       @current_day = (elapsed).ceil
