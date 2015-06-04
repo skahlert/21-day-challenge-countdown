@@ -6,7 +6,7 @@ module TwentyOneDayChallenge
     attr_reader :current_day
 
     def initialize
-      start_time = Time.parse('2015-05-04 12:00:00 -0600')
+      start_time = Time.parse('2015-06-01 12:00:00 -0600')
       now = Time.now
 
       elapsed = (now - start_time)
